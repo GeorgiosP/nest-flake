@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { SnowflakeService } from './snowflake.service';
-import { SnowflakeController } from './snowflake.controller';
+import { SnowflakeQueryService } from './snowflake-query.service';
+import { SnowflakeConnectionService } from './snowflake-connection.service';
 
 @Module({
-  providers: [SnowflakeService],
-  controllers: [SnowflakeController]
+    providers: [SnowflakeConnectionService, SnowflakeQueryService],
+    exports: [SnowflakeQueryService]
 })
-export class SnowflakeModule {}
+export class SnowflakeModule {
+}
