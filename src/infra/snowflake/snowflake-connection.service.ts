@@ -9,12 +9,15 @@ export class SnowflakeConnectionService implements OnModuleDestroy {
   constructor(private readonly configService: ConfigService) { }
 
   private readonly config = {
+    timeout: 15 * 1000,
     account: this.configService.get<string>('SNOWFLAKE_ACCOUNT'),
+    authenticator: 'SNOWFLAKE',
     username: this.configService.get<string>('SNOWFLAKE_USERNAME'),
     password: this.configService.get<string>('SNOWFLAKE_PASSWORD'),
+    role: this.configService.get<string>('SNOWFLAKE_ROLE'),
     database: this.configService.get<string>('SNOWFLAKE_DATABASE'),
-    schema: this.configService.get<string>('SNOWFLAKE_SCHEMA'),
     warehouse: this.configService.get<string>('SNOWFLAKE_WAREHOUSE'),
+    clientSessionKeepAlive: true
   };
 
   async createConnection() {
@@ -24,7 +27,6 @@ export class SnowflakeConnectionService implements OnModuleDestroy {
 
     this.connection.connect((err) => {
       if (err) {
-        console.log('here for logs')
         console.error('Unable to connect to Snowflake:', err.message);
       } else {
         console.log('Snowflake connection established.');

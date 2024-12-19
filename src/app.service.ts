@@ -9,7 +9,10 @@ export class AppService {
   }
 
   getSnowflake() {
-    const sql = 'SELECT * FROM USERS'
+    const sql = `
+    SELECT * 
+    FROM SANDBOX.TRAINING.TEST01
+    `
     return this.queryService.executeQuery(sql)
   }
 }
